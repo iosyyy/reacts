@@ -1,0 +1,12 @@
+export const LOGIN_API = "/api/auth/login";
+export const REGISTER_API = "/api/auth/register";
+export const SHOW_USERS = "/api/showUsers";
+export const SET_ADMIN = "/api/setAdmin";
+export const SET_COLD = "/api/setCold";
+export const CHANGE_USER = "/api/changeUser";
+export const INSERT_HEA = "/api/insertHea";
+export const GET_ALL_HEA = "/api/getAllHea";
+export const DELETE_HEA = "/api/deleteHea";
+export const UPDATE_HEA = "/api/updateHea";
+export const GET_ALL_CART = "/api/getAllCart";
+export const INSERT_CART = "/api/insertCart";
