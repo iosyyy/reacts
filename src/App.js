@@ -1,6 +1,6 @@
-import React, {Fragment, Suspense, lazy, useEffect} from "react";
+import React, { Fragment, Suspense, lazy, useEffect } from "react";
 import { MuiThemeProvider, CssBaseline } from "@material-ui/core";
-import { BrowserRouter, Route, Switch } from "react-router-dom";
+import { HashRouter, Route, Switch } from "react-router-dom";
 import theme from "./theme";
 import GlobalStyles from "./GlobalStyles";
 import Pace from "./shared/components/Pace";
@@ -21,27 +21,31 @@ const requestAuthorization = (request) => {
     return request;
   }
 };
-const toEnd = ()=>{
-  cookie.remove("user","/");
-  cookie.remove("user","/c");
-  window.location.href = "/"
-}
+const toEnd = () => {
+  cookie.remove("user", "/");
+  cookie.remove("user", "/c");
+  window.location.href = "/#";
+};
 // request拦截器
-axios.interceptors.response.use(response => {
-  return response;
-}, error => {
-  if(error.response.status === 401){
-    toEnd();
-    return error.response.data
-  }else if(error.response.status === 404){
-    toEnd();
-    return error.response.data
-  }if(error.response.status === 504){
-    toEnd();
-    return error.response.data
+axios.interceptors.response.use(
+  (response) => {
+    return response;
+  },
+  (error) => {
+    if (error.response.status === 401) {
+      toEnd();
+      return error.response.data;
+    } else if (error.response.status === 404) {
+      toEnd();
+      return error.response.data;
+    }
+    if (error.response.status === 504) {
+      toEnd();
+      return error.response.data;
+    }
+    Promise.reject(error);
   }
-  Promise.reject(error)
-})
+);
 axios.interceptors.request.use(
   (config) => {
     requestAuthorization(config);
@@ -54,13 +58,16 @@ axios.interceptors.request.use(
 function App() {
   useEffect(() => {
     const user = cookie.load("user");
-    console.log(user)
-    if (user&&window.location.href!=="http://localhost:3000/c/dashboard") {
-      window.location.href = "/c/dashboard";
+    console.log(user);
+    if (
+      user &&
+      window.location.href !== "http://localhost:3000/#/c/dashboard"
+    ) {
+      window.location.href = "/#/c/dashboard";
     }
   });
   return (
-    <BrowserRouter>
+    <HashRouter>
       <MuiThemeProvider theme={theme}>
         <CssBaseline />
         <GlobalStyles />
@@ -76,7 +83,7 @@ function App() {
           </Switch>
         </Suspense>
       </MuiThemeProvider>
-    </BrowserRouter>
+    </HashRouter>
   );
 }
 

@@ -10,3 +10,5 @@ export const DELETE_HEA = "/api/deleteHea";
 export const UPDATE_HEA = "/api/updateHea";
 export const GET_ALL_CART = "/api/getAllCart";
 export const INSERT_CART = "/api/insertCart";
+export const INSERT_USER = "/api/insertUser";
+export const DELETE_USER = "/api/deleteUser";
